@@ -4,6 +4,7 @@ from datetime import date
 from datetime import datetime
 import awswrangler as wr
 import os
+import urllib
 
 
 
@@ -14,7 +15,7 @@ def extract_bucket_name(event):
     return name
 
 def extract_object_key(event):
-    key = event["Records"][0]["s3"]["object"]["key"]
+    key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'], encoding='utf-8')
     return key 
 
 
